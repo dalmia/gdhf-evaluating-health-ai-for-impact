@@ -49,7 +49,7 @@ def af(t, logo_uuid):
     t = re.sub(r'<div style="font:500 \d+px/[\d.]+ [^;"]*;color:#4a5568;">Agent reply', f'<div style="font:700 26px/1 {SANS};color:{NAVY};letter-spacing:3px;text-transform:uppercase;">Agent reply', t)
     # small labels above example boxes: pill style, same as the FREE TEXT / STRUCTURED OUTPUT tags
     PILL = {'Agent reply': '#9A7003', 'Rule': '#7a4f9a', 'Reasoning': '#2b6cb0'}
-    t = re.sub(r'<div style="font:700 \d+px/[\d.]+ Gelasio,Georgia,serif;color:#1f2a4d;letter-spacing:3px;text-transform:uppercase;">(Agent reply|Rule|Reasoning)<', lambda m: f'<div style="align-self:flex-start;background:{PILL[m.group(1)]};color:#fff;border-radius:999px;padding:9px 20px;font:700 26px/1 Gelasio,Georgia,serif;">{m.group(1)}<', t)
+    t = re.sub(r'<div style="font:700 \d+px/[\d.]+ Gelasio,Georgia,serif;color:#1f2a4d;letter-spacing:3px;text-transform:uppercase;">(Agent reply|Rule|Reasoning)<', lambda m: f'<div style="align-self:flex-start;background:{PILL[m.group(1)]};color:#fff;border-radius:999px;padding:9px 20px;font:700 26px/1 Gelasio,Georgia,serif;">{"Criteria" if m.group(1) == "Rule" else m.group(1)}<', t)
     # no all-caps letter-spaced styling anywhere on the slides (Calibrate UI panels keep their own look)
     return t
 
