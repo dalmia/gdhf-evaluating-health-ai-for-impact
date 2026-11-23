@@ -120,7 +120,7 @@ def rule_card(question, reply_html, value):
     return inner
 
 
-def test_list(failed, passed_count):
+def test_list(failed, passed_count, failed_count=63):
     cb = '<span style="flex:none;width:36px;height:36px;border:3px solid #a3a3a3;border-radius:8px;box-sizing:border-box;"></span>'
     x = f'<span style="flex:none;width:40px;height:40px;border-radius:50%;background:#fde2e4;color:{R};display:flex;align-items:center;justify-content:center;font:400 26px/1 {F};">✕</span>'
     rows = "".join(f'<div style="display:flex;align-items:center;gap:20px;height:92px;padding-left:52px;">{cb}{x}'
@@ -133,7 +133,7 @@ def test_list(failed, passed_count):
             f'<div style="padding:24px 20px 0;"><div style="border:2px solid #e2e2e2;border-radius:12px;height:78px;display:flex;align-items:center;gap:18px;padding:0 24px;font:400 30px/1 {F};color:#777;">'
             f'<svg width="34" height="34" viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="2"><circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/></svg>Search tests</div>'
             f'<div style="font:400 23px/1 {F};color:#777;padding:22px 0 26px;">Select all</div></div>'
-            f'<div style="border-top:2px solid #e5e5e5;">{head("⌄", "#ef4444", f"Failed ({len(failed)})")}</div>'
+            f'<div style="border-top:2px solid #e5e5e5;">{head("⌄", "#ef4444", f"Failed ({failed_count})")}</div>'
             f'<div style="padding:8px 0 10px;">{rows}</div>'
             f'{head("›", "#22c55e", f"Passed ({passed_count})")}</div>')
 

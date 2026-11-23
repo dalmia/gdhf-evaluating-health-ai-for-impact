@@ -170,7 +170,7 @@ def s17(s):
               "bleeding_after_delivery__flags_emergency"]
     m = re.search(r'<img [^>]*>', s)
     assert m
-    return s[:m.start()] + V.scaled(V.test_list(failed, 493), 701, 1041, 0.5833) + s[m.end():]
+    return s[:m.start()] + V.scaled(V.test_list(failed, 437), 701, 1041, 0.5833) + s[m.end():]
 
 
 def s21b(s):
@@ -188,14 +188,14 @@ def s21b(s):
 
 
 def s17a(s):
-    top = [("Pass rate", "98.6%", None, 493/500, "493/500"),
+    top = [("Pass rate", "87.4%", None, 437/500, "437/500"),
            ("Latency", "2.6 s", "1.16 s – 12.65 s", None, ""),
            ("Average cost", "$0.005647", "$0.002995 – $0.0152", None, ""),
            ("Average tokens", "2,763", "2,534 – 3,184", None, "")]
-    evals = [("Emergency check", "100%", 1.0, "53/53", True),
-             ("Medical accuracy", "99.1%", 443/447, "443/447", False),
-             ("Hindi Language adherence", "100%", 1.0, "447/447", False),
-             ("Reply Conciseness", "100%", 1.0, "447/447", False)]
+    evals = [("Emergency check", "94.3%", 50/53, "50/53", True),
+             ("Medical accuracy", "88.6%", 396/447, "396/447", False),
+             ("Hindi Language adherence", "97.1%", 434/447, "434/447", False),
+             ("Reply Conciseness", "91.3%", 408/447, "408/447", False)]
     m = re.search(r'<img [^>]*>', s)
     assert m
     return s[:m.start()] + V.scaled(V.dashboard(top, evals), 2576, 1010, 0.652) + s[m.end():]
