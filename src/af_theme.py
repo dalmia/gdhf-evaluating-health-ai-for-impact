@@ -63,7 +63,7 @@ def _af(t, logo_uuid):
         # bigger, readable label pills: square-ish tag, larger type, more padding
         s = s.replace("background:" + GOLD + ";color:#fff;border-radius:999px;padding:10px 20px;", "background:#9A7003;color:#fff;border-radius:999px;padding:10px 20px;")
         s = s.replace("border-radius:999px;padding:10px 20px;font:600 28px/1 'IBM Plex Mono',monospace;",
-                      "border-radius:10px;padding:16px 28px;font:700 36px/1 'IBM Plex Mono',monospace;letter-spacing:1px;text-transform:uppercase;")
+                      "border-radius:10px;padding:16px 28px;font:700 34px/1 'IBM Plex Mono',monospace;")
         return s
     t = re.sub(r'<section data-label="08 Two kinds of output".*?</section>', two_kinds, t, flags=re.S)
 
@@ -95,6 +95,7 @@ def _af(t, logo_uuid):
     t = re.sub(r"'IBM Plex Mono',monospace", SANS, t)
     t = t.replace("&quot;IBM Plex Mono&quot;, monospace", SANS).replace("&quot;Bricolage Grotesque&quot;, sans-serif", SERIF)
 
+    t = t.replace("'IBM Plex Mono',monospace;color:#b44a06;", "'IBM Plex Mono',monospace;color:#9A7003;")
     # white slides, no grid
     t = re.sub(r"background-image:\s*linear-gradient\(rgba\(27,26,23,\.07\) 2px,transparent 2px\),linear-gradient\(90deg,rgba\(27,26,23,\.07\) 2px,transparent 2px\);\s*background-size:\s*60px 60px;", "", t)
     t = t.replace("#f6f3ea", "#FFFFFF")
@@ -140,13 +141,20 @@ def _af(t, logo_uuid):
         return f'<div style="{st};color:{MUTED};">'
     t = re.sub(r'<div style="([^"]*font:\s*[45]00 [^"]*?);?">', body, t)
 
+    t = re.sub(r'(<div style="(?:flex:none;)?font:700 77px/1\.15 )', r'<div style="max-width:1500px;font:700 70px/1.15 ', t)
+    t = t.replace('<div style="max-width:1500px;flex:none;', '<div style="flex:none;max-width:1500px;')
+    t = t.replace('max-width:1500px;flex:none;font:700 77px', 'max-width:1500px;flex:none;font:700 70px').replace('flex:none;max-width:1500px;font:700 77px', 'flex:none;max-width:1500px;font:700 70px')
+    # on navy slides, highlighted words use a bright gold so they stay readable
+    def dark_hl(m):
+        return m.group(0).replace('data-afhl="1" style="color:#9A7003;', 'data-afhl="1" style="color:#FBD654;')
+    t = re.sub(r'<section data-label="Development outcomes".*?</section>', dark_hl, t, flags=re.S)
     # Agency Fund logo top-right on content slides, as in the master deck
     logo = f'<img src="{logo_uuid}" alt="The Agency Fund" style="position:absolute;top:44px;right:60px;height:72px;">'
 
     def add_logo(m):
         sec = m.group(0)
         label = re.search(r'data-label="([^"]*)"', sec).group(1)
-        if label in ("00 Title",) or "background:" + NAVY in sec[:600] or "padding:0;" in sec[:600]:
+        if label in ("00 Title", "21b2 Evaluate the evaluator") or "background:" + NAVY in sec[:600] or "padding:0;" in sec[:600]:
             return sec
         sec = sec.replace('style="', 'style="position:relative;', 1)
         return sec.replace("</section>", logo + "</section>")

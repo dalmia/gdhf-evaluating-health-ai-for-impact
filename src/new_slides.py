@@ -215,10 +215,10 @@ def dev_outcomes():
 
 
 def feedback():
-    lv = [("L1", "System", "Does the AI system perform as intended?", "#1f2b4a", "#c49a3c"),
-          ("L2", "Product", "Does the product engage and retain users?", "#233a2d", "#5fae7e"),
-          ("L3", "User", "Does the product move the needle on user thoughts, feelings, and behavior?", "#361d3a", "#b07cc6"),
-          ("L4", "Impact", "Do users with access to the product improve development outcomes?", "#3a1f14", "#d97a4a")]
+    lv = [("L1", "Model", "Does the AI system perform as intended?", "#1f2b4a", "#c49a3c"),
+          ("L2", "Product", "Does the overall product engage and retain users?", "#233a2d", "#5fae7e"),
+          ("L3", "User", "Does product usage change how users are thinking, feeling, and behaving?", "#361d3a", "#b07cc6"),
+          ("L4", "Impact", "Does product usage improve development outcomes?", "#3a1f14", "#d97a4a")]
     W, CW, GAP, TOP, CH = 1680, 390, 40, 90, 300
     cx = [CW / 2 + i * (CW + GAP) for i in range(4)]
     bottom = TOP + CH
