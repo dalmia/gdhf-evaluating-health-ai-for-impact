@@ -70,6 +70,11 @@ def mark_ui(s):
 
 
 def fix_maisha(s):
+    for a, c in [("LLM judges score free-text replies", "AI copilot for nurses to respond to caregiver questions"),
+                 ("Human experts review them every week", "Align LLM judges with experts for continuously monitoring AI response quality"),
+                 ("Those reviews tune the LLM judges", "Nurses review the judges’ scores every week, and those reviews tune the judges")]:
+        assert a in s, a
+        s = s.replace(a, c)
     s = s.replace("Noora Health and Intelehealth", "Noora Health and Maisha Meds")
     i = s.index('alt="Intelehealth logo"')
     card_start = s.rfind('<div style="flex:1;min-width:0;background:#fff;', 0, i)
@@ -80,7 +85,9 @@ def fix_maisha(s):
             + f'<div style="height:88px;display:flex;align-items:center;"><img src="{qr_uuid("maisha")}" alt="Maisha Meds logo" style="display:block;height:88px;width:auto;object-fit:contain;"></div>'
             + item("01", "Sending patients AI-drafted instructions for their medicines")
             + item("02", "Using LLM judges to track and monitor the quality of these messages over time")
-            + item("03", "Flagging messages that contradict a listed warning or describe its directions of use incorrectly", 800)
+            + item("03", "Flagging messages that give wrong dosage or miss a warning")
+            + item("04", "Did almost 50 iterations to tune the LLM judge to human feedback")
+            + item("05", "The aligned LLM judge now monitors quality in production", 800)
             + '</div>')
     return s[:card_start] + card + s[card_end:].replace('</div></div></section>', '</div></section>', 1)
 
